@@ -8,11 +8,11 @@ Services from Attack/Defense Workout held by [SPbCTF meetups crew](https://githu
 
 Service | Language | Author
 --------|----------|-------
-[editorps](editor-ps/) | Python | @n0str
-[gorepick](gorepick/) | Go | @Sinketsu
-[sharkssl](sharkssl/) | JavaScript | @kabachook
-[turnkeyctf](turnkeyctf/) | Python | @kukuxumushi
-[wtf](wtf/) | PHP | @v0s
+[editorps](editor-ps/) | Python | Alex Menschikov ([n0str](https://github.com/n0str))
+[gorepick](gorepick/) | Go | Roman Opyakin ([Sinketsu](https://github.com/Sinketsu))
+[sharkssl](sharkssl/) | JavaScript | Danil Beltyukov ([kabachook](https://github.com/kabachook))
+[turnkeyctf](turnkeyctf/) | Python | Dmitriy Tatarov ([kukuxumushi](https://github.com/kukuxumushi))
+[wtf](wtf/) | PHP | Vlad Roskov ([v0s](https://github.com/v0s))
 
 ## License
 
