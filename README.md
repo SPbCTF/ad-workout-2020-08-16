@@ -10,7 +10,7 @@ Service | Language | Author
 --------|----------|-------
 [editorps](editor-ps/) | Python | Alex Menschikov ([n0str](https://github.com/n0str))
 [gorepick](gorepick/) | Go | Roman Opyakin ([Sinketsu](https://github.com/Sinketsu))
-[sharkssl](sharkssl/) | JavaScript | Danil Beltyukov ([kabachook](https://github.com/kabachook))
+[sharkssl](sharkssl/) | TypeScript | Danil Beltyukov ([kabachook](https://github.com/kabachook))
 [turnkeyctf](turnkeyctf/) | Python | Dmitriy Tatarov ([kukuxumushi](https://github.com/kukuxumushi))
 [wtf](wtf/) | PHP | Vlad Roskov ([v0s](https://github.com/v0s))
 

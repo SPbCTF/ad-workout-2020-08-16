@@ -1,0 +1,27 @@
+version: '2.4'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    pids_limit: 100
+    cpu_percent: 50
+    mem_limit: 512M
+    restart: always
+    init: true
+    environment:
+      MONGO_URI: 'mongodb://db:27017/sharkssl'
+    depends_on:
+      - db
+
+  db:
+    image: mongo:4
+    volumes:
+      - mongo_data:/var/lib/mongodb
+    restart: always
+    cpu_percent: 50
+    mem_limit: 512M
+
+volumes:
+  mongo_data:
