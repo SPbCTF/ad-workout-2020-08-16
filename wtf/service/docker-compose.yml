@@ -1,0 +1,15 @@
+version: "2.4"
+
+services:
+    wtf:
+        build: .
+        restart: always
+        pids_limit: 100
+        cpu_percent: 50
+        mem_limit: 512M
+        stop_grace_period: 1s
+        volumes:
+            - ./www/:/var/www/
+            - ./mysqldata/:/var/lib/mysql/
+        ports:
+            - '2943:80'
