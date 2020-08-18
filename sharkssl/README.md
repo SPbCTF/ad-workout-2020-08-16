@@ -83,6 +83,8 @@ solving ECDLP problem.
 
 There is an original library [noble-secp256k1](https://github.com/paulmillr/noble-secp256k1) (pretty good one!), so you can either diff the original source or look at the length of private keys in responses.
 
+> Learn more about Elliptic Curve Cryptography [here](https://danil.co)
+
 Exploit: [`weakKey.js`](./sploits/src/weakKey.js)
 
 > You need to have Python and Sagemath installed
