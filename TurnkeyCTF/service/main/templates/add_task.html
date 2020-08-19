@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'head.html'%}
+    <title>Add task</title>
+    </head>
+<body>
+
+	{% include 'header.html'%}
+		
+	<div class="container add_task">
+		<div id="cloning" class="row">
+            <div id="message"></div>
+		<div id="right-list" class="list-group col_right add_task_col">
+            
+            <div class="list-group-item" id="Add_Name">
+                Name<br>
+                <textarea style="width:100%;resize:none;overflow:auto">Name</textarea>
+            </div>
+            
+            <div class="list-group-item" id="Add_Description">
+                Description<br>
+            <textarea style="width:100%;resize:none;overflow:auto">Description</textarea>
+            </div>
+            
+            <div class="list-group-item" id="Add_Flag">
+                Flag<br>
+                
+            <textarea style="width:100%;resize:none;overflow:auto">Flag</textarea>
+            </div>
+            <div class="list-group-item" id="Add_Category">
+                Category<br>
+            <select id="Category">
+                <option value="Web">Web</option>
+                <option value="Rev">Reverse</option>
+                <option value="HTB">HTB</option>
+                <option value="Steg">Steganography</option>
+                <option value="Cryp">Cryptography</option>
+                <option value="Misc">Misc</option>
+                <option value="Joy">Joy</option>
+                <option value="PWN">PWN</option>
+            </select>
+            </div>
+
+        <button onclick="add_task()">Add Task</button>
+		</div>
+		</div>
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../static/js/Sortable.js"></script>
+
+	<script type="text/javascript" src="../static/js/prettify.js"></script>
+    <script type="text/javascript" src="../static/js/run_prettify.js"></script>
+    <script src="../static/js/app_2.js"></script>
+    <script src="../static/js/alertify.min.js"></script>
+<script>
+    function add_task(){
+                var Name = $("#Add_Name textarea").val();
+                var Description = $("#Add_Description textarea").val();
+                var Flag = $("#Add_Flag textarea").val();		
+                var Category = $("#Category :selected").val();	
+                var Category_full = $("#Category :selected").text();	
+                $("#Add_Name textarea").val("Name");
+                $("#Add_Description textarea").val("Description");
+                $("#Add_Flag textarea").val("Flag");	
+            	$.post('/add_task_handler',{
+                    		Name, Description, Flag, Category, Category_full
+				},
+                function(data) {
+                    window["alertify"][data.result.category](data.result.message);
+                    if (data.result.category=="error"){
+                        $("#Add_Name textarea").val(Name);
+                        $("#Add_Description textarea").val(Description);
+                        $("#Add_Flag textarea").val(Flag);	
+                    }
+
+
+                })
+    }
+    te = document.getElementsByTagName('textarea');
+    for (var i = te.length - 1; i >= 0; --i) {
+        te[i].addEventListener('keyup', resizeTextarea);
+        te[i].style.height = '24px';
+        te[i].style.height = te[i].scrollHeight + 12 + 'px';
+    }
+    function resizeTextarea(ev) {
+            this.style.height = '24px';
+            this.style.height = this.scrollHeight + 12 + 'px';
+        }
+    </script>
+</body>
+</html>

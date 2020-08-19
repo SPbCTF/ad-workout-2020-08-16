@@ -1,0 +1,66 @@
+<div class="header">
+    {% if request.endpoint == 'signin' or request.endpoint == 'signup' %}
+        <div class=site_name>Turn-key CTF - Task storage and template engine for your CTF</div>
+    {% else %}
+    <div class="left">
+        {% set search_endpoints =['CTF_templator', 'edit_task', 'task_viewer']%}
+        {% if request.endpoint in search_endpoints %}
+            {% include 'search.html' %}
+        {% endif %}
+    </div>
+    <div class="center"> 
+    <div class="topnav" id="myTopnav">
+        <div class="row_header">
+            <a href="/task_viewer" {% if request.endpoint == 'task_viewer'%}class="active"{% endif %}>Task viewer</a>
+            <a href="/CTF_templator" {% if request.endpoint == 'CTF_templator'%}class="active"{% endif %}>CTF templator</a>        
+            <a href="/add_task" {% if request.endpoint == 'add_task'%}class="active"{% endif %}>Add task</a>
+            <a href="/edit_task" {% if request.endpoint == 'edit_task'%}class="active"{% endif %}>Edit task</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+      </div>
+      {% if request.endpoint =="CTF_templator" %}
+        <div class="bottom">
+            <div class="row_header"></div>
+                <form>
+                    <div class="bottom_divider" id="Project_bottom">Choose project: <br>
+                    <select name='project_selection' class="select_project">
+                        
+                        {% for project in projects %}
+                            <option value="{{project}}">{{project}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type='button' value='Submit' id="project_selection_btn"/>
+                </form>
+            </div>
+            <div class="bottom_divider" id='Users_bottom' style="display: none;">Share with: <br>
+                <form>
+                    <select name='user_selection' class="select_user">
+                        
+                        {% for user in users %}
+                            <option value="{{user}}">{{user}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type='button' value='Submit' id="user_selection_btn"/>
+                </form>
+            </div>
+            <div class="bottom_divider" id='Download_bottom' style="display: none;">Download project: <br>
+                <form action="/create_CTF" method="get" id='download_form'>
+                    <input type="hidden" name="project" id="hidden_project_val">
+                    <input type='submit' value='Download' id="download_project_btn"/>
+                </form>
+            </div>
+        </div>
+    
+    {% endif %}
+
+</div>
+    <div class="right">
+        <p style="text-align:right; display: table-cell; vertical-align: middle;height:120px"> {{session['current_user']}} <a href="/logout">Log out</a></p>
+    </div>
+</div>    
+    
+    {% endif %}
+    
+</div>

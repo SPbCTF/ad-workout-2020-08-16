@@ -1,0 +1,12 @@
+Flask_PyMongo==2.3.0
+python_docx==0.8.5
+WTForms==2.2.1
+Flask_Session==0.3.2
+Flask_WTF==0.14.2
+Flask==1.1.1
+stop_words==2018.7.23
+pymongo==3.11.0
+docx==0.2.4
+bcrypt
+werkzeug==0.16.1
+gunicorn>=19.7.1

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	{% include 'head.html'%}
+    <title>Task viewer</title>
+    </head>
+<body>
+
+		{% include 'header.html'%}
+	
+	<div class="container">
+		<div id="cloning" class="row">
+		<div id="left-list" class="list-group col_center views">
+			{% for task in tasks %}
+			<div class="list-group-item" id="{{task[0]}}"><div class="division"><div class="category" style="writing-mode: vertical-rl; text-orientation: upright;">{{task[2]}}</div><div class="text">{{task[1]}}</div></div></div>
+			{% endfor %}
+		</div>
+		<div id="right-list" class="list-group col_right veiws">
+			<div class="list-group-item" id="Name" style="display: none;"></div>
+			<div class="list-group-item" id="Description" style="display: none;"></div>
+			<div class="list-group-item" id="Flag" style="display: none;"></div>
+		</div>
+		<div class="col_right_extra"></div>
+	</div>
+	</div>
+	{%include 'footer.html' %}
+	<script>
+	$(".list-group-item").click(function(){
+    if($(this).closest(".col_center").length>0){
+        task_recieve($(this).attr('id'));
+    };
+    return false;
+	});
+
+	Split(['.col_center', '.col_right','.col_right_extra'],{
+		sizes: [25, 75,0],
+		minSize: [100, 100, 0],
+	});
+	</script>
+</div>
+</body>
+</html>

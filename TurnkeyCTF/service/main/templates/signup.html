@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'head.html'%}
+  <title>Sign up</title>
+  </head>
+  <body>
+    {% include 'header.html'%}
+    
+  <div class="container">
+    <form class="form-signin" method="POST">
+      <p>Firstname:
+      {{ signupform.firstname(id="inputEmail", class="form-control", autofocus="",placeholder="First Name")}}
+      {% if signupform.firstname.errors %}
+      <ul class="errors">
+        {% for error in signupform.firstname.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}</p>
+      <p>Lastname:
+      {{ signupform.lastname(id="inputEmail", class="form-control", autofocus="",placeholder="Last Name")}}
+      {% if signupform.lastname.errors %}
+      <ul class="errors">
+        {% for error in signupform.lastname.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}</p>
+      <p>Username:
+      {{ signupform.username(id="inputEmail", class="form-control", autofocus="",placeholder="User Name")}}
+      {% if signupform.username.errors %}
+      <ul class="errors">
+        {% for error in signupform.username.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}</p>
+      <p>Password:
+      {{ signupform.password(id="inputPassword", class="form-control", required="", placeholder="Password") }}
+      {% if signupform.password.errors %}
+      <ul class="errors">
+        {% for error in signupform.password.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}</p>
+      <p>Email:
+      {{ signupform.email(id="inputEmail", class="form-control", autofocus="",placeholder="lastname.firstname@email.com")}}
+      {% if signupform.email.errors %}
+      <ul class="errors">
+        {% for error in signupform.email.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}</p>
+    {{ signupform.csrf_token }}
+      <p>Sign up:
+      {{ signupform.submit(class="btn btn-lg btn-primary btn-block")}}</p>
+        <div class="noacc">Already have an account? <a class="signup" href="/signin">Sign in</a></div>      
+    </form>
+
+      
+    </div>
+    {% include 'footer.html'%}
+</body>
+</html>

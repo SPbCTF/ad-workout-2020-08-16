@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	{% include 'head.html'%}
+    <title>CTF templator</title>
+    </head>
+<body>
+
+	{% include 'header.html'%}
+	
+	<div class="container">
+		<div id="cloning" class="row" style="display: none;">
+		<div id="left-list" class="list-group col_left">
+			{% for task in tasks %}
+			<div class="list-group-item" id="{{task[0]}}"><div class="division"><div class="category" style="writing-mode: vertical-rl; text-orientation: upright;">{{task[2]}}</div><div class="text">{{task[1]}}</div></div></div>
+			{% endfor %}
+		</div>
+
+		<div id="center-list" class="list-group col_center">
+			<nbsp>
+		</div>
+		<div id="right-list" class="list-group col_right">
+			<div class="list-group-item" id="Name" style="display: none;">
+				<div class="id" style="display: none;"></div>
+				<div class="division">
+					<div class="category" id="selection">
+						<select id="Category" >
+							<option value="Web">Web</option>
+							<option value="Rev">Reverse</option>
+							<option value="HTB">HTB</option>
+							<option value="Steg">Steganography</option>
+							<option value="Cryp">Cryptography</option>
+							<option value="Misc">Misc</option>
+							<option value="Joy">Joy</option>
+							<option value="PWN">PWN</option>
+						</select>
+					</div>
+					<div class="text">
+						<textarea style="width:90%;resize:none;overflow:auto"></textarea>
+					</div>
+			</div>
+				</div>
+			<div class="list-group-item" id="Description" style="display: none;"></div>
+			<div class="list-group-item" id="Flag" style="display: none;"></div>
+			<div class="list-group-item" id="Buttons" style="display: none;"><button type="button" id="save_button">Save changes</button></div>
+		</div>
+		<div class="col_right_extra"></div>
+		</div>
+		
+	</div>	
+	{%include 'footer.html' %}
+	<script>
+
+
+		$(document).on("click", ".list-group-item" , function() {
+            if($(this).closest(".col_center").length>0){
+			var id = $(this).attr('id')
+			task_recieve(id);
+		};
+        });
+
+
+		$("#save_button").click(function(){
+			var id = $(".id").text();
+			var Name = $("#Name textarea").val();
+			var Description = $("#Description textarea").val();
+			var Flag = $("#Flag textarea").val();		
+			var Category = $("#Category :selected").val();	
+			var Category_full = $("#Category :selected").text();
+			var Project	= $("#project_selection_btn").prev('select').find('option:selected').val();
+			$.post('/save_task',{
+				id, Name, Description, Flag, Category, Category_full, Project
+			},
+			function(data) {
+				window["alertify"][data.result.category](data.result.message);
+				if (data.result.category=="success"){
+					$("#Download_bottom").show();
+					$("#Users_bottom").show();
+					$("#center-list #"+id+" .division .category").text(Category);
+					$("#center-list #"+id+" .division .text").text(Name);			
+		}
+			})
+		})
+
+
+		Split(['.col_left','.col_center', '.col_right','.col_right_extra'],{
+		sizes: [25, 25, 50,0],
+		minSize: [100, 100, 100,0],
+		});
+
+		$(document).ready(function() {
+			
+		$(".select_project").customComboBox({
+
+			tipText : "Enter new project name",
+			tipClass : "mytipclass",
+			allowed : /[A-Za-z0-9\$\.\s]/,
+			notallowed : /[\<\>]/,
+			index : 'last'});			
+			$("#project_selection_btn").on('click',function(e) {
+				$("#cloning").show();
+				var val = $(this).prev('select').find('option:selected').val();
+				$.getJSON('/project_selection',{
+					"project": val
+				},
+				function(data) {
+					if(data.result.category=='error'){
+						window["alertify"][data.result.category](data.result.message);	}
+					else if(data.result.category=='success'){
+						window["alertify"][data.result.category](data.result.message);
+						$("#center-list").empty();}
+					else{
+						$("#center-list").empty();
+						$("#Download_bottom").show();
+						$("#Users_bottom").show();
+						$.each(data.result, function( index, value ) {
+							$("#center-list").append("<div class=\"list-group-item\" id=" + value._id + " draggable=\"false\" style=\"\"><div class=\"division\"><div class=\"category\" style=\"writing-mode: vertical-rl; text-orientation: upright;\">"+value.Category+"</div><div class=\"text\">" + value.Name + "</div></div></div>");
+						}
+						)
+					}
+					
+				  }
+				)
+				}
+				)
+			$(".select_user").customComboBox({
+
+			tipText : "Enter user name",
+			tipClass : "mytipclass",
+			allowed : /[A-Za-z0-9\$\.\s]/,
+			notallowed : /[\<\>]/,
+			index : 'last'});
+
+			$("#user_selection_btn").on('click',function(e) {
+				var project = $('.select_project').find('option:selected').val();
+				var user = $(this).prev('select').find('option:selected').val();
+				$.getJSON('/user_selection',{
+					user, project
+				},
+				function(data) {
+					window["alertify"][data.result.category](data.result.message);
+				}
+				)
+				}
+				)
+			});
+		
+			$('#download_form').submit(function() {
+				$('#hidden_project_val').val($('.select_project').find('option:selected').val())
+				});
+		</script>
+	
+</body>
+</html>

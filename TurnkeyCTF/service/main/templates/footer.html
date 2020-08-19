@@ -1,0 +1,25 @@
+<div class="footer">
+	<div id="loader"><img src="/static/img/loader.gif"/></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% if request.endpoint == 'CTF_templator' %}
+        <script src="/static/js/Sortable.js"></script>
+        <script type="text/javascript" src="/static/js/prettify.js"></script>
+        <script type="text/javascript" src="/static/js/run_prettify.js"></script>
+		<script src="/static/js/app.js"></script>
+		<script type="text/javascript" src="/static/js/jssha256.js"></script>
+		<script type="text/javascript" src="/static/js/customComboBox.js"></script>
+    {% endif %}
+	<script src="/static/js/app_2.js"></script>
+	<script src="/static/js/alertify.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+	<div class="notifications">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			  {% for category, message in messages %}
+				<script>javascript:alertify.{{ category }}('{{ message }}');void(0);</script>
+			  {% endfor %}
+		{% endif %}
+		{% endwith %}
+
+	</div>
+</div>

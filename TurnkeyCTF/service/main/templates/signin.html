@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'head.html'%}
+    <title>Sign in</title>
+  </head>
+  <body>
+  {% include 'header.html'%}
+
+<div class="container">
+    <form class="form-signin" method="POST">
+        <p>Login:&nbsp&nbsp&nbsp     
+        {{ signinform.username(placeholder="Username",id="inputUsername", class="form-control", autofocus="") }}</p>
+        <p>Password:
+        {{ signinform.password(placeholder="Password",id="inputPassword", class="form-control", required="") }}</p>
+        <p><div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        </p>
+        <p>
+        {{ signinform.csrf_token }}
+        {{ signinform.submit(class="btn btn-lg btn-primary btn-block")}}</p>
+        <p>
+              <div class="noacc">
+        Dont have an account? <a href="signup">Register</a>
+      </div></p>
+      </form>
+
+</div>
+{% include 'footer.html'%}
+</body>
+</html>

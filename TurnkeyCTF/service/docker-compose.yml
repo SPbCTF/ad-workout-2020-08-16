@@ -1,0 +1,26 @@
+version: "2.4"
+
+services:
+  app:
+    build: .
+    #command: python3 app.py
+    command: gunicorn -w 1 -b :31337 app:app
+    volumes:
+      - .:/app
+    pids_limit: 100
+    cpu_percent: 50
+    mem_limit: 512M
+    restart: always 
+  mongo_db:
+    image: mongo:3.6.3
+    volumes:
+      - ./mongodb:/data/db
+    restart: always  
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "31337:31337"  
+volumes:
+  mongodb:
