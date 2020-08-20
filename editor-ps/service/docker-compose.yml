@@ -1,0 +1,50 @@
+version: "2.4"
+
+services:
+  consul:
+    build:
+      context: ./attache
+      dockerfile: Dockerfile
+    command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect 1 -config-file=/consul/config/config.json
+    volumes:
+      - ./attache/config/config.json:/consul/config/config.json
+      - consuldata:/consul/data
+    pids_limit: 100
+    ulimits:
+      nproc: 100
+    cpu_percent: 50
+    mem_limit: 512M
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    volumes:
+      - redisdata:/data
+    pids_limit: 100
+    ulimits:
+      nproc: 100
+    cpu_percent: 50
+    mem_limit: 512M
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api/:/home/api
+    ports:
+      - 20005:5000
+    depends_on:
+      - consul
+      - redis
+    pids_limit: 100
+    ulimits:
+      nproc: 100
+    cpu_percent: 50
+    mem_limit: 512M
+    restart: unless-stopped
+
+volumes:
+  consuldata:
+  redisdata:

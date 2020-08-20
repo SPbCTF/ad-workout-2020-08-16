@@ -1,0 +1,6 @@
+Faker==4.1.1
+Flask==1.1.2
+Flask-Bootstrap==3.3.7.1
+python-consul==1.1.0
+redis==3.5.3
+pyOpenSSL==19.1.0
