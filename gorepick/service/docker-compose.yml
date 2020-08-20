@@ -1,0 +1,32 @@
+version: '3'
+services:
+  gorepick:
+    build: .
+    ports:
+      - 2020:2020
+    restart: always
+    environment:
+      - LISTEN=:2020
+      - REDIS_ADDR=redis:6379
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
+    volumes:
+      - ./storage/scripts:/storage/scripts
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
+    volumes:
+      - ./data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
