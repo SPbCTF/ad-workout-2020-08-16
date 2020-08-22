@@ -22,4 +22,4 @@
     Bcrypt can hash only 56bytes of data, any data following these 56 bytes will be discarded. 
     If you didnt change the pepper to a way shorter one, then pepper+password is longer then 56 bytes and user can login with any password.
     
-   [Exploit](sploits/poc_brcypt.py)
+   [Exploit](sploits/poc_bcrypt.py)
